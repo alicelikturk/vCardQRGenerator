@@ -1,0 +1,432 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    #field, #field2, #field3 {
+        float: left;
+    }
+
+    #businessCardInfo {
+        width: 72%;
+        height: 100%;
+    }
+</style>
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+<div class="row">
+    <div class="col-3">
+        <div class="card mb-3 h-100">
+            <div class="card-body">
+                <form method="post" action="" enctype="multipart/form-data"
+                      id="myform">
+                    <div class="mb-3">
+                        <label for="formFileSm" class="form-label">CSV dosyası seçiniz</label>
+                        <input class="form-control form-control-sm" id="file" type="file">
+                    </div>
+                </form>
+                <div id="csv-display">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card mb-3 h-100">
+            <div class="card-body">
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col-3">
+                            <fieldset>
+                                <legend>You</legend>
+                                <div class="mb-1"><label>First name</label><input class="form-control" type="text" name="first_name"></div>
+                                <div class="mb-1"><label>Last name</label><input class="form-control" type="text" name="last_name"></div>
+                                <div class="mb-1"><label>Birthday</label><input class="form-control" type="text" name="birthday"></div>
+                                <div class="mb-1">
+                                    <label>Gender</label>
+                                    <select name="gender" class="form-select">
+                                        <option></option>
+                                        <option value="Female">Kadın</option>
+                                        <option value="Male" selected>Erkek</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-3">
+                            <fieldset>
+                                <legend>Home</legend>
+                                <div class="mb-1"><label>Street and number</label><input class="form-control" type="text" name="home_street"></div>
+                                <div class="mb-1"><label>City</label><input class="form-control" type="text" name="home_city"></div>
+                                <div class="mb-1"><label>Postal code</label><input class="form-control" type="text" name="home_region"></div>
+                                <div class="mb-1"><label>Region</label><input class="form-control" type="text" name="home_post"></div>
+                                <div class="mb-1"><label>Country</label><input class="form-control" type="text" name="home_country"></div>
+                                <div class="mb-1"><label>Telephone</label><input class="form-control" type="text" name="home_tel"></div>
+                                <div class="mb-1"><label>E-mail</label><input class="form-control" type="text" name="home_email"></div>
+                                <div class="mb-1"><label>Website</label><input class="form-control" type="text" name="home_url"></div>
+                            </fieldset>
+                        </div>
+                        <div class="col-3">
+                            <fieldset>
+                                <legend>Work</legend>
+                                <div class="mb-1"><label>Job title</label><input class="form-control" type="text" name="org_title"></div>
+                                <div class="mb-1"><label>Name</label><input class="form-control" type="text" name="org_name"></div>
+                                <div class="mb-1"><label>Street and number</label><input class="form-control" type="text" name="org_street"></div>
+                                <div class="mb-1"><label>City</label><input class="form-control" type="text" name="org_city"></div>
+                                <div class="mb-1"><label>Postal code</label><input class="form-control" type="text" name="org_region"></div>
+                                <div class="mb-1"><label>Region</label><input class="form-control" type="text" name="org_post"></div>
+                                <div class="mb-1"><label>Country</label><input class="form-control" type="text" name="org_country"></div>
+                                <div class="mb-1"><label>Telephone</label><input class="form-control" type="text" name="org_tel"></div>
+                                <div class="mb-1"><label>E-mail</label><input class="form-control" type="text" name="org_email"></div>
+                                <div class="mb-1"><label>Website</label><input class="form-control" type="text" name="org_url"></div>
+                            </fieldset>
+                        </div>
+                        <div class="col-3">
+                            <fieldset>
+                                <legend>Online services</legend>
+                                <div class="mb-1"><label>Facebook</label><input class="form-control" type="text" name="facebook" value="http://www.facebook.com/"></div>
+                                <div class="mb-1"><label>Twitter</label><input class="form-control" type="text" name="twitter" value="http://www.twitter.com/"></div>
+                                <div class="mb-1"><label>Flickr</label><input class="form-control" type="text" name="flickr" value="http://www.flickr.com/"></div>
+                                <div class="mb-1"><label>Youtube</label><input class="form-control" type="text" name="youtube" value="http://www.youtube.com/"></div>
+                                <div class="mb-1"><label>Skype</label><input class="form-control" type="text" name="skype"></div>
+                            </fieldset>
+                        </div>
+                    </div>
+                   
+                    
+                    <div class="col-12">
+                        <p class="w-100 text-end">
+                            <a class="btn btn-dark" id="generateQR">
+                                <i class="bi bi-qr-code"></i>
+                                <span>QR Kod Oluştur</span>
+                            </a>
+                        </p>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 h-100">
+            <div class="card-body text-center">
+                <h3>QR code</h3>
+                <p>Bu QR kod vCard tarafından oluşturuldu.</p>
+                <img id="qr-server" src="/"  alt="vcard qr" width="250" height="250"/>
+                @*<img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr">*@
+                <hr />
+                
+                <p>Bu QR vCard aşağıdaki bilgileri kullanarak oluşturuldu.</p>
+                <textarea name="vcard" class="w-100" rows="10"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts {
+    <script>
+        /**
+* TODO:
+* - add picture and company logo
+*/
+        var vcard = {
+            str_start: 'BEGIN:VCARD\nVERSION:3.0\n',
+            str_vcard: 'BEGIN:VCARD\nVERSION:3.0\n',
+            str_end: '\nEND:VCARD',
+            goog_chart: 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=',
+            form: [],
+            set_field: function (field, value) {
+                vcard.form = $('form').serializeArray();
+                for (var i in vcard.form) {
+                    if (vcard.form[i].name === field) {
+
+                        $("[name='" + vcard.form[i].name + "']").val(value)
+                    }
+                }
+            },
+            get_field: function (field) {
+                for (var i in vcard.form) {
+                    if (vcard.form[i].name === field) {
+                        return vcard.form[i].value.replace(/^\s+|\s+$/g, "");
+                    }
+                }
+            },
+            add_you: function () {
+                var first_name = vcard.get_field("first_name"),
+                    last_name = vcard.get_field("last_name"),
+                    birthday = vcard.get_field('birthday'),
+                    gender = vcard.get_field('gender');
+
+                vcard.str_vcard += 'N:' + last_name + ';' + first_name + '\n' +
+                    'FN:' + first_name + ' ' + last_name;
+                // TODO convert date to american format
+                if (birthday !== '') { vcard.str_vcard += '\nBDAY:' + birthday; }
+
+                if (gender !== '') { vcard.str_vcard += '\nX-GENDER:' + gender; }
+            },
+            add_address: function () {
+                var home_street = vcard.get_field("home_street"),
+                    home_city = vcard.get_field("home_city"),
+                    home_region = vcard.get_field("home_region"),
+                    home_post = vcard.get_field("home_post"),
+                    home_country = vcard.get_field("home_country"),
+                    org_street = vcard.get_field("org_street"),
+                    org_city = vcard.get_field("org_city"),
+                    org_region = vcard.get_field("org_region"),
+                    org_post = vcard.get_field("org_post"),
+                    org_country = vcard.get_field("org_country");
+
+                if (home_street + home_city + home_region + home_post + home_country !== '') {
+                    vcard.str_vcard += '\nADR;TYPE=home:;;' + home_street + ';' + home_city + ';' + home_region +
+                        ';' + home_post + ';' + home_country;
+                }
+                if (org_street + org_city + org_region + org_post + org_country !== '') {
+                    vcard.str_vcard += '\nADR;TYPE=work:;;' + org_street + ';' + org_city + ';' + org_region +
+                        ';' + org_post + ';' + org_country;
+                }
+            },
+            add_tel: function () {
+                var home = vcard.get_field("home_tel"),
+                    work = vcard.get_field("org_tel");
+
+                if (home !== '') { vcard.str_vcard += '\nTEL;TYPE=home:' + home; }
+
+                if (work !== '') { vcard.str_vcard += '\nTEL;TYPE=work:' + work; }
+            },
+            add_email: function () {
+                var home = vcard.get_field("home_email"),
+                    work = vcard.get_field("org_email");
+
+                if (home !== '') { vcard.str_vcard += '\nEMAIL;TYPE=internet,home:' + home; }
+
+                if (work !== '') { vcard.str_vcard += '\nEMAIL;TYPE=internet,work:' + work; }
+            },
+            add_url: function () {
+                var home = vcard.get_field("home_url"),
+                    work = vcard.get_field("org_url");
+
+                if (home !== '') { vcard.str_vcard += '\nURL;TYPE=home:' + home; }
+
+                if (work !== '') { vcard.str_vcard += '\nURL;TYPE=work:' + work; }
+            },
+            add_work: function () {
+                var name = vcard.get_field("org_name"),
+                    title = vcard.get_field("org_title");
+
+                if (name !== '') { vcard.str_vcard += '\nORG:' + name; }
+
+                if (title !== '') { vcard.str_vcard += '\nTITLE:' + title; }
+            },
+            add_social: function () {
+                var facebook = vcard.get_field("facebook"),
+                    twitter = vcard.get_field("twitter"),
+                    youtube = vcard.get_field("youtube"),
+                    skype = vcard.get_field("skype"),
+                    flickr = vcard.get_field("flickr");
+
+                if (facebook !== 'http://www.facebook.com/') { vcard.str_vcard += '\nsocialProfile;type=facebook:' + facebook; }
+
+                if (twitter !== 'http://www.twitter.com/') { vcard.str_vcard += '\nsocialProfile;type=twitter:' + twitter; }
+
+                if (flickr !== 'http://www.flickr.com/') { vcard.str_vcard += '\nalbum;type=photo:' + flickr; }
+
+                if (youtube !== 'http://www.youtube.com/') { vcard.str_vcard += '\nX-SKYPE:' + youtube; }
+
+                if (skype !== '') { vcard.str_vcard += '\nalbum;type=video:' + skype; }
+            },
+            required_check: function () {
+                var first_name = vcard.get_field("first_name"),
+                    last_name = vcard.get_field("last_name"),
+                    msg = 'Field%FIELD% %NAME% %VERB% required.',
+                    fields = [];
+
+                if (first_name === '') { fields.push('First name'); }
+
+                if (last_name === '') { fields.push('Last name'); }
+
+                if (fields.length === 0) { return ''; }
+
+                msg = msg.replace('%NAME%', fields.join(', '));
+
+                msg = msg.replace('%FIELD%', (fields.length === 1) ? '' : 's');
+
+                msg = msg.replace('%VERB%', (fields.length === 1) ? 'is' : 'are');
+
+                return msg;
+            },
+            save: function () {
+                vcard.form = $('form').serializeArray();
+
+                var required_check_output = vcard.required_check();
+
+                if (required_check_output !== '') {
+                    alert(required_check_output);
+                    return;
+                }
+
+                vcard.add_you();
+
+                vcard.add_address();
+
+                vcard.add_tel();
+
+                vcard.add_email();
+
+                vcard.add_url();
+
+                vcard.add_work();
+
+                vcard.add_social();
+
+                vcard.str_vcard += vcard.str_end;
+
+                $('textarea[name="vcard"]').val(vcard.str_vcard);
+
+                var str_vcard_replaced = vcard.str_vcard.replace(/\n/g, '%0A');
+
+                $('#qr').attr('src', vcard.goog_chart + str_vcard_replaced);
+
+                vcard.str_vcard = vcard.str_start;
+
+                setQR(str_vcard_replaced);
+            }
+        };
+
+        $(function () {
+            $('#generateQR').click(vcard.save);
+        });
+    </script>
+
+    <script>
+
+        function setQR(vCard) {
+            console.log(vCard)
+
+        jQuery.ajax({
+            type: 'POST',
+            url: "/generate-qr",
+            data: { vCardInfo: vCard },
+            success: function (result) {
+                console.log(result)
+                
+
+                $("#qr-server").attr('src', result);
+            }
+        });
+
+    }
+
+    $('#file').change(function () {
+
+        var fd = new FormData();
+        var files = $('#file')[0].files[0];
+        fd.append('file', files);
+        //console.log(files)
+
+        jQuery.ajax({
+            type: 'POST',
+            url: "/read-csv-file",
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                //console.log(result)
+                generateHtmlTable(result);
+
+                setDataTable();
+            }
+        });
+
+
+    });
+
+
+
+
+    function generateHtmlTable(data) {
+        var html = '';
+        html += '<table id="vcard-list" class="table table-condensed table-hover table-striped table-sm">';
+        html += '<thead>';
+        html += '<tr>';
+        for (var key in data[0]) {
+            html += '<th>';
+            html += key;
+            html += '</th>';
+        }
+        html += '</tr>';
+        html += '</head>';
+        html += '<tbody>';
+        $.each(data, function (index, row) {
+            html += '<tr data-info=' + row['firstName'] + '>';
+            $.each(row, function (index, colData) {
+                html += '<td>';
+                html += colData;
+                html += '</td>';
+            });
+            html += '</tr>';
+        });
+        html += '</tbody>';
+        html += '</table>';
+
+        $('#csv-display').append(html);
+    }
+
+    function setDataTable(data) {
+        var events = $('#csv-display');
+        var table = $('#vcard-list').DataTable({
+            dom: 'Bfrtip',
+            select: true,
+            buttons: [
+                {
+                    text: 'Bilgileri Doldur',
+                    action: function () {
+                        var selected = table.rows('.selected').data()[0];
+                        //events.prepend('<div>' + selected + '</div>');
+                        vcard.set_field("first_name", selected[0])
+                        vcard.set_field("last_name", selected[1])
+                        vcard.set_field("org_email", selected[2])
+                        vcard.set_field("org_tel", selected[3])
+                    }
+                }
+            ],
+            columnDefs: [
+                {
+                    target: 2,
+                    visible: false,
+                },
+                {
+                    target: 3,
+                    visible: false,
+                },
+            ],
+        });
+
+    }
+
+
+
+
+
+    </script>
+
+
+ <script>
+     $(document).ready(function () {
+         
+     });
+ </script>
+}
+
+
+
+

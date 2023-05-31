@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1705.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vCardQRGenerator", "vCardQRGenerator\vCardQRGenerator.csproj", "{290B7A68-6E7C-4980-8AFB-CD52E1DE552A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{290B7A68-6E7C-4980-8AFB-CD52E1DE552A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{290B7A68-6E7C-4980-8AFB-CD52E1DE552A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{290B7A68-6E7C-4980-8AFB-CD52E1DE552A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{290B7A68-6E7C-4980-8AFB-CD52E1DE552A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {23F1723C-C205-400A-953D-3CFABC31D29C}
+	EndGlobalSection
+EndGlobal
