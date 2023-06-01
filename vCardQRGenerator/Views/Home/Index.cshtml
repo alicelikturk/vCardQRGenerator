@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "QR vCard";
 }
 
 <style>
@@ -15,24 +15,47 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-5">QR vCard</h1>
+    <p>Kurumsal logolu dijital qr kartvizit</p>
 </div>
 
 
 <div class="row">
     <div class="col-3">
-        <div class="card mb-3 h-100">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3 class="card-title">Kurumsal Logo</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="" enctype="multipart/form-data"
+                      id="myformLogo">
+                    <div class="mb-3">
+                        <label for="file-logo" class="form-label">Resim dosyası seçiniz</label>
+                        <input class="form-control form-control-sm" id="file-logo" type="file" accept=".png">
+                    </div>
+                </form>
+                <div id="logo-display">
+                    <img id="logo" src="/" alt="logo" width="50" height="50" />
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3 class="card-title">Kişi Listesi</h3>
+            </div>
             <div class="card-body">
                 <form method="post" action="" enctype="multipart/form-data"
                       id="myform">
                     <div class="mb-3">
                         <label for="formFileSm" class="form-label">CSV dosyası seçiniz</label>
-                        <input class="form-control form-control-sm" id="file" type="file">
+                        <a class="ms-2" id="sample-file-download" href="/sample/sample.csv" download="sample.csv">
+                            <span>Örnek CSV dosyası</span>
+                        </a>
+                        <input class="form-control form-control-sm" id="file" type="file" accept=".csv">
                     </div>
                 </form>
-                <div id="csv-display">
-
+                <div id="csv-display" class="table-responsive">
+                     
                 </div>
             </div>
         </div>
@@ -44,51 +67,51 @@
                     <div class="row">
                         <div class="col-3">
                             <fieldset>
-                                <legend>You</legend>
-                                <div class="mb-1"><label>First name</label><input class="form-control" type="text" name="first_name"></div>
-                                <div class="mb-1"><label>Last name</label><input class="form-control" type="text" name="last_name"></div>
-                                <div class="mb-1"><label>Birthday</label><input class="form-control" type="text" name="birthday"></div>
+                                <legend>Kişi</legend>
+                                <div class="mb-1"><label>İsim</label><input class="form-control" type="text" name="firstname" required></div>
+                                <div class="mb-1"><label>Soyisim</label><input class="form-control" type="text" name="lastname" required></div>
+                                <div class="mb-1"><label>Doğum Günü</label><input class="form-control" type="text" name="birthday"></div>
                                 <div class="mb-1">
-                                    <label>Gender</label>
+                                    <label>Cinsiyet</label>
                                     <select name="gender" class="form-select">
                                         <option></option>
                                         <option value="Female">Kadın</option>
-                                        <option value="Male" selected>Erkek</option>
+                                        <option value="Male">Erkek</option>
                                     </select>
                                 </div>
                             </fieldset>
                         </div>
                         <div class="col-3">
                             <fieldset>
-                                <legend>Home</legend>
-                                <div class="mb-1"><label>Street and number</label><input class="form-control" type="text" name="home_street"></div>
-                                <div class="mb-1"><label>City</label><input class="form-control" type="text" name="home_city"></div>
-                                <div class="mb-1"><label>Postal code</label><input class="form-control" type="text" name="home_region"></div>
-                                <div class="mb-1"><label>Region</label><input class="form-control" type="text" name="home_post"></div>
-                                <div class="mb-1"><label>Country</label><input class="form-control" type="text" name="home_country"></div>
-                                <div class="mb-1"><label>Telephone</label><input class="form-control" type="text" name="home_tel"></div>
-                                <div class="mb-1"><label>E-mail</label><input class="form-control" type="text" name="home_email"></div>
-                                <div class="mb-1"><label>Website</label><input class="form-control" type="text" name="home_url"></div>
+                                <legend>Ev</legend>
+                                <div class="mb-1"><label>Sokak ve Numara</label><input class="form-control" type="text" name="homestreet"></div>
+                                <div class="mb-1"><label>Şehir</label><input class="form-control" type="text" name="homecity"></div>
+                                <div class="mb-1"><label>Posta Kodu</label><input class="form-control" type="text" name="homepost"></div>
+                                <div class="mb-1"><label>Bölge</label><input class="form-control" type="text" name="homeregion"></div>
+                                <div class="mb-1"><label>Ülke</label><input class="form-control" type="text" name="homecountry"></div>
+                                <div class="mb-1"><label>Telefon</label><input class="form-control" type="text" name="hometel"></div>
+                                <div class="mb-1"><label>E-posta</label><input class="form-control" type="text" name="homeemail"></div>
+                                <div class="mb-1"><label>Website</label><input class="form-control" type="text" name="homeurl"></div>
                             </fieldset>
                         </div>
                         <div class="col-3">
                             <fieldset>
-                                <legend>Work</legend>
-                                <div class="mb-1"><label>Job title</label><input class="form-control" type="text" name="org_title"></div>
-                                <div class="mb-1"><label>Name</label><input class="form-control" type="text" name="org_name"></div>
-                                <div class="mb-1"><label>Street and number</label><input class="form-control" type="text" name="org_street"></div>
-                                <div class="mb-1"><label>City</label><input class="form-control" type="text" name="org_city"></div>
-                                <div class="mb-1"><label>Postal code</label><input class="form-control" type="text" name="org_region"></div>
-                                <div class="mb-1"><label>Region</label><input class="form-control" type="text" name="org_post"></div>
-                                <div class="mb-1"><label>Country</label><input class="form-control" type="text" name="org_country"></div>
-                                <div class="mb-1"><label>Telephone</label><input class="form-control" type="text" name="org_tel"></div>
-                                <div class="mb-1"><label>E-mail</label><input class="form-control" type="text" name="org_email"></div>
-                                <div class="mb-1"><label>Website</label><input class="form-control" type="text" name="org_url"></div>
+                                <legend>İş</legend>
+                                <div class="mb-1"><label>Ünvan</label><input class="form-control" type="text" name="orgtitle"></div>
+                                <div class="mb-1"><label>İsim</label><input class="form-control" type="text" name="orgname"></div>
+                                <div class="mb-1"><label>Sokak ve Numara</label><input class="form-control" type="text" name="orgstreet"></div>
+                                <div class="mb-1"><label>Şehir</label><input class="form-control" type="text" name="orgcity"></div>
+                                <div class="mb-1"><label>Posta Kodu</label><input class="form-control" type="text" name="orgregion"></div>
+                                <div class="mb-1"><label>Bölge</label><input class="form-control" type="text" name="orgpost"></div>
+                                <div class="mb-1"><label>Ülke</label><input class="form-control" type="text" name="orgcountry"></div>
+                                <div class="mb-1"><label>Telefon</label><input class="form-control" type="text" name="orgtel"></div>
+                                <div class="mb-1"><label>E-posta</label><input class="form-control" type="text" name="orgemail"></div>
+                                <div class="mb-1"><label>Website</label><input class="form-control" type="text" name="orgurl"></div>
                             </fieldset>
                         </div>
                         <div class="col-3">
                             <fieldset>
-                                <legend>Online services</legend>
+                                <legend>Sosyal Ağlar</legend>
                                 <div class="mb-1"><label>Facebook</label><input class="form-control" type="text" name="facebook" value="http://www.facebook.com/"></div>
                                 <div class="mb-1"><label>Twitter</label><input class="form-control" type="text" name="twitter" value="http://www.twitter.com/"></div>
                                 <div class="mb-1"><label>Flickr</label><input class="form-control" type="text" name="flickr" value="http://www.flickr.com/"></div>
@@ -115,14 +138,22 @@
     <div class="col-3">
         <div class="card mb-3 h-100">
             <div class="card-body text-center">
-                <h3>QR code</h3>
-                <p>Bu QR kod vCard tarafından oluşturuldu.</p>
-                <img id="qr-server" src="/"  alt="vcard qr" width="250" height="250"/>
-                @*<img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr">*@
-                <hr />
+                <h3>
+                    <span>QR code</span>
+                    <a class="ms-2 d-none btn btn-outline-dark py-1" id="qr-download" href="" download="qr.png">
+                        <i class="bi bi-download" style="font-size:1rem"></i>
+                    </a>
+                </h3>
+                <p>Bu QR kod vCardQRGenerator tarafından oluşturuldu.</p>
                 
-                <p>Bu QR vCard aşağıdaki bilgileri kullanarak oluşturuldu.</p>
-                <textarea name="vcard" class="w-100" rows="10"></textarea>
+                    <img id="qr-server" src="/" alt="vcard qr" width="250" height="250" />
+
+                @*<img id="qr-server" src="/" alt="vcard qr" width="250" height="250" />*@
+                @*<img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr">*@
+                @*<hr />*@
+
+                @*<p>Bu QR vCard aşağıdaki bilgileri kullanarak oluşturuldu.</p>
+                <textarea name="vcard" class="w-100" rows="10"></textarea>*@
             </div>
         </div>
     </div>
@@ -162,66 +193,66 @@
                 }
             },
             add_you: function () {
-                var first_name = vcard.get_field("first_name"),
-                    last_name = vcard.get_field("last_name"),
+                var firstname = vcard.get_field("firstname"),
+                    lastname = vcard.get_field("lastname"),
                     birthday = vcard.get_field('birthday'),
                     gender = vcard.get_field('gender');
 
-                vcard.str_vcard += 'N:' + last_name + ';' + first_name + '\n' +
-                    'FN:' + first_name + ' ' + last_name;
+                vcard.str_vcard += 'N:' + lastname + ';' + firstname + '\n' +
+                    'FN:' + firstname + ' ' + lastname;
                 // TODO convert date to american format
                 if (birthday !== '') { vcard.str_vcard += '\nBDAY:' + birthday; }
 
                 if (gender !== '') { vcard.str_vcard += '\nX-GENDER:' + gender; }
             },
             add_address: function () {
-                var home_street = vcard.get_field("home_street"),
-                    home_city = vcard.get_field("home_city"),
-                    home_region = vcard.get_field("home_region"),
-                    home_post = vcard.get_field("home_post"),
-                    home_country = vcard.get_field("home_country"),
-                    org_street = vcard.get_field("org_street"),
-                    org_city = vcard.get_field("org_city"),
-                    org_region = vcard.get_field("org_region"),
-                    org_post = vcard.get_field("org_post"),
-                    org_country = vcard.get_field("org_country");
+                var homestreet = vcard.get_field("homestreet"),
+                    homecity = vcard.get_field("homecity"),
+                    homeregion = vcard.get_field("homeregion"),
+                    homepost = vcard.get_field("homepost"),
+                    homecountry = vcard.get_field("homecountry"),
+                    orgstreet = vcard.get_field("orgstreet"),
+                    orgcity = vcard.get_field("orgcity"),
+                    orgregion = vcard.get_field("orgregion"),
+                    orgpost = vcard.get_field("orgpost"),
+                    orgcountry = vcard.get_field("orgcountry");
 
-                if (home_street + home_city + home_region + home_post + home_country !== '') {
-                    vcard.str_vcard += '\nADR;TYPE=home:;;' + home_street + ';' + home_city + ';' + home_region +
-                        ';' + home_post + ';' + home_country;
+                if (homestreet + homecity + homeregion + homepost + homecountry !== '') {
+                    vcard.str_vcard += '\nADR;TYPE=home:;;' + homestreet + ';' + homecity + ';' + homeregion +
+                        ';' + homepost + ';' + homecountry;
                 }
-                if (org_street + org_city + org_region + org_post + org_country !== '') {
-                    vcard.str_vcard += '\nADR;TYPE=work:;;' + org_street + ';' + org_city + ';' + org_region +
-                        ';' + org_post + ';' + org_country;
+                if (orgstreet + orgcity + orgregion + orgpost + orgcountry !== '') {
+                    vcard.str_vcard += '\nADR;TYPE=work:;;' + orgstreet + ';' + orgcity + ';' + orgregion +
+                        ';' + orgpost + ';' + orgcountry;
                 }
             },
             add_tel: function () {
-                var home = vcard.get_field("home_tel"),
-                    work = vcard.get_field("org_tel");
+                var home = vcard.get_field("hometel"),
+                    work = vcard.get_field("orgtel");
 
                 if (home !== '') { vcard.str_vcard += '\nTEL;TYPE=home:' + home; }
 
                 if (work !== '') { vcard.str_vcard += '\nTEL;TYPE=work:' + work; }
             },
             add_email: function () {
-                var home = vcard.get_field("home_email"),
-                    work = vcard.get_field("org_email");
+                var home = vcard.get_field("homeemail"),
+                    work = vcard.get_field("orgemail");
 
                 if (home !== '') { vcard.str_vcard += '\nEMAIL;TYPE=internet,home:' + home; }
 
                 if (work !== '') { vcard.str_vcard += '\nEMAIL;TYPE=internet,work:' + work; }
             },
             add_url: function () {
-                var home = vcard.get_field("home_url"),
-                    work = vcard.get_field("org_url");
+                var home = vcard.get_field("homeurl"),
+                    work = vcard.get_field("orgurl");
 
                 if (home !== '') { vcard.str_vcard += '\nURL;TYPE=home:' + home; }
 
                 if (work !== '') { vcard.str_vcard += '\nURL;TYPE=work:' + work; }
             },
             add_work: function () {
-                var name = vcard.get_field("org_name"),
-                    title = vcard.get_field("org_title");
+                var name = vcard.get_field("orgname"),
+                    title = vcard.get_field("orgtitle");
 
                 if (name !== '') { vcard.str_vcard += '\nORG:' + name; }
 
@@ -245,14 +276,14 @@
                 if (skype !== '') { vcard.str_vcard += '\nalbum;type=video:' + skype; }
             },
             required_check: function () {
-                var first_name = vcard.get_field("first_name"),
-                    last_name = vcard.get_field("last_name"),
+                var firstname = vcard.get_field("firstname"),
+                    lastname = vcard.get_field("lastname"),
                     msg = 'Field%FIELD% %NAME% %VERB% required.',
                     fields = [];
 
-                if (first_name === '') { fields.push('First name'); }
+                if (firstname === '') { fields.push('First name'); }
 
-                if (last_name === '') { fields.push('Last name'); }
+                if (lastname === '') { fields.push('Last name'); }
 
                 if (fields.length === 0) { return ''; }
 
@@ -310,17 +341,31 @@
     <script>
 
         function setQR(vCard) {
-            console.log(vCard)
+
+            var fd = new FormData();
+            var fileInput = $('#file-logo')[0];
+            var file = fileInput.files[0];
+            fd.append('file', file);
+            fd.append('vCardInfo', vCard);
+
+            var data = { vCardInfo: vCard, file: file };
+            console.log(data)
 
         jQuery.ajax({
             type: 'POST',
-            url: "/generate-qr",
-            data: { vCardInfo: vCard },
+            url: "@Url.Action("GetQrCode", "Home")",
+            data: fd,
+            processData: false,
+            contentType: false,
             success: function (result) {
-                console.log(result)
-                
 
                 $("#qr-server").attr('src', result);
+                $("#qr-download").attr('href', result);
+
+                let fileName = vcard.get_field("firstname").toLocaleLowerCase() + "_" + vcard.get_field("lastname").toLocaleLowerCase();
+                $("#qr-download").attr('download', fileName + ".png");
+                $("#qr-download").removeClass('d-none');
+
             }
         });
 
@@ -335,7 +380,7 @@
 
         jQuery.ajax({
             type: 'POST',
-            url: "/read-csv-file",
+            url: "@Url.Action("GetCSVFile", "Home")",
             data: fd,
             processData: false,
             contentType: false,
@@ -350,10 +395,24 @@
 
     });
 
+    $('#file-logo').change(function () {
+
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#logo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(this.files[0]);
+        }
+
+    });
 
 
 
-    function generateHtmlTable(data) {
+        function generateHtmlTable(data) {
+            $('#csv-display').empty();
         var html = '';
         html += '<table id="vcard-list" class="table table-condensed table-hover table-striped table-sm">';
         html += '<thead>';
@@ -381,24 +440,24 @@
         $('#csv-display').append(html);
     }
 
-    function setDataTable(data) {
+    function setDataTable() {
         var events = $('#csv-display');
         var table = $('#vcard-list').DataTable({
             dom: 'Bfrtip',
             select: true,
-            buttons: [
-                {
-                    text: 'Bilgileri Doldur',
-                    action: function () {
-                        var selected = table.rows('.selected').data()[0];
-                        //events.prepend('<div>' + selected + '</div>');
-                        vcard.set_field("first_name", selected[0])
-                        vcard.set_field("last_name", selected[1])
-                        vcard.set_field("org_email", selected[2])
-                        vcard.set_field("org_tel", selected[3])
-                    }
-                }
-            ],
+            //buttons: [
+            //    {
+            //        text: 'Bilgileri Doldur',
+            //        action: function () {
+            //            var selected = table.rows('.selected').data()[0];
+            //            //events.prepend('<div>' + selected + '</div>');
+            //            vcard.set_field("firstname", selected[0])
+            //            vcard.set_field("lastname", selected[1])
+            //            vcard.set_field("orgemail", selected[2])
+            //            vcard.set_field("orgtel", selected[3])
+            //        }
+            //    }
+            //],
             columnDefs: [
                 {
                     target: 2,
@@ -409,6 +468,43 @@
                     visible: false,
                 },
             ],
+            destroy: true
+        });
+
+        table.on('select', function (e, dt, type, indexes) {
+            if (type === 'row') {
+                var data = table.rows(indexes).data()[0];
+                //var selected = table.rows('.selected').data()[0];
+                //events.prepend('<div>' + selected + '</div>');
+                vcard.set_field("firstname", data[0])
+                vcard.set_field("lastname", data[1])
+                vcard.set_field("birthday", data[2])
+                vcard.set_field("gender", data[3])
+                vcard.set_field("homestreet", data[4])
+                vcard.set_field("homecity", data[5])
+                vcard.set_field("homeregion", data[6])
+                vcard.set_field("homepost", data[7])
+                vcard.set_field("homecountry", data[8])
+                vcard.set_field("hometel", data[9])
+                vcard.set_field("homeemail", data[10])
+                vcard.set_field("homeurl", data[11])
+                vcard.set_field("orgtitle", data[12])
+                vcard.set_field("orgname", data[13])
+                vcard.set_field("orgstreet", data[14])
+                vcard.set_field("orgcity", data[15])
+                vcard.set_field("orgregion", data[16])
+                vcard.set_field("orgpost", data[17])
+                vcard.set_field("orgcountry", data[18])
+                vcard.set_field("orgtel", data[19])
+                vcard.set_field("orgemail", data[20])
+                vcard.set_field("orgurl", data[21])
+                vcard.set_field("facebook", data[22])
+                vcard.set_field("twitter", data[23])
+                vcard.set_field("flickr", data[24])
+                vcard.set_field("youtube", data[25])
+                vcard.set_field("skype", data[26])
+
+            }
         });
 
     }

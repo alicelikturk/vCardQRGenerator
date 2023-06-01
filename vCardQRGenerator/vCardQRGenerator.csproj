@@ -27,5 +27,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\datatables\" />
+    <Content Remove="wwwroot\Sample\sample.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\sample\sample.csv" />
   </ItemGroup>
 </Project>
