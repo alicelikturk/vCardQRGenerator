@@ -35,7 +35,10 @@
                     </div>
                 </form>
                 <div id="logo-display">
-                    <img id="logo" src="/" alt="logo" width="50" height="50" />
+                    <figure class="figure">
+                        <img id="logo" src="/" class="figure-img img-fluid rounded" alt=" " width="50" height="50">
+                        <figcaption class="figure-caption text-end">Qr kod içerisinde görüntülenecek olan resim</figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -48,7 +51,7 @@
                       id="myform">
                     <div class="mb-3">
                         <label for="formFileSm" class="form-label">CSV dosyası seçiniz</label>
-                        <a class="ms-2" id="sample-file-download" href="/sample/sample.csv" download="sample.csv">
+                        <a class="ms-2" id="sample-file-download" href="~/sample/sample.csv" download="sample.csv">
                             <span>Örnek CSV dosyası</span>
                         </a>
                         <input class="form-control form-control-sm" id="file" type="file" accept=".csv">
@@ -70,6 +73,7 @@
                                 <legend>Kişi</legend>
                                 <div class="mb-1"><label>İsim</label><input class="form-control" type="text" name="firstname" required></div>
                                 <div class="mb-1"><label>Soyisim</label><input class="form-control" type="text" name="lastname" required></div>
+                                <div class="mb-1"><label>Telefon</label><input class="form-control" type="text" name="personaltel"></div>
                                 <div class="mb-1"><label>Doğum Günü</label><input class="form-control" type="text" name="birthday"></div>
                                 <div class="mb-1">
                                     <label>Cinsiyet</label>
@@ -145,15 +149,17 @@
                     </a>
                 </h3>
                 <p>Bu QR kod vCardQRGenerator tarafından oluşturuldu.</p>
-                
-                    <img id="qr-server" src="/" alt="vcard qr" width="250" height="250" />
+                <figure class="figure">
+                    <img id="qr-server" src="/" class="figure-img img-fluid rounded" alt=" " width="250" height="250" />
+                    <figcaption class="figure-caption text-end">QR vCard</figcaption>
+                </figure>
 
                 @*<img id="qr-server" src="/" alt="vcard qr" width="250" height="250" />*@
                 @*<img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr">*@
-                @*<hr />*@
+                <hr />
 
-                @*<p>Bu QR vCard aşağıdaki bilgileri kullanarak oluşturuldu.</p>
-                <textarea name="vcard" class="w-100" rows="10"></textarea>*@
+                <p>Bu QR vCard aşağıdaki bilgileri kullanarak oluşturuldu.</p>
+                <textarea name="vcard" class="w-100" rows="10"></textarea>
             </div>
         </div>
     </div>
@@ -176,13 +182,10 @@
             str_end: '\nEND:VCARD',
             goog_chart: 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=',
             form: [],
-            set_field: function (field, value) {
+            set_field: function (data) {
                 vcard.form = $('form').serializeArray();
                 for (var i in vcard.form) {
-                    if (vcard.form[i].name === field) {
-
-                        $("[name='" + vcard.form[i].name + "']").val(value)
-                    }
+                    $("[name='" + vcard.form[i].name + "']").val(data[vcard.form[i].name])
                 }
             },
             get_field: function (field) {
@@ -227,8 +230,11 @@
                 }
             },
             add_tel: function () {
-                var home = vcard.get_field("hometel"),
+                var personal = vcard.get_field("personaltel"),
+                    home = vcard.get_field("hometel"),
                     work = vcard.get_field("orgtel");
+
+                if (personal !== '') { vcard.str_vcard += '\nTEL;TYPE=mobile:' + personal; }
 
                 if (home !== '') { vcard.str_vcard += '\nTEL;TYPE=home:' + home; }
 
@@ -265,15 +271,15 @@
                     skype = vcard.get_field("skype"),
                     flickr = vcard.get_field("flickr");
 
-                if (facebook !== 'http://www.facebook.com/') { vcard.str_vcard += '\nsocialProfile;type=facebook:' + facebook; }
+                if (facebook !== '') { vcard.str_vcard += '\nsocialProfile;type=facebook:' + facebook; }
 
-                if (twitter !== 'http://www.twitter.com/') { vcard.str_vcard += '\nsocialProfile;type=twitter:' + twitter; }
+                if (twitter !== '') { vcard.str_vcard += '\nsocialProfile;type=twitter:' + twitter; }
 
-                if (flickr !== 'http://www.flickr.com/') { vcard.str_vcard += '\nalbum;type=photo:' + flickr; }
+                if (flickr !== '') { vcard.str_vcard += '\nalbum;type=photo:' + flickr; }
 
-                if (youtube !== 'http://www.youtube.com/') { vcard.str_vcard += '\nX-SKYPE:' + youtube; }
+                if (youtube !== '') { vcard.str_vcard += '\nalbum;type=video:' + skype; }
 
-                if (skype !== '') { vcard.str_vcard += '\nalbum;type=video:' + skype; }
+                if (skype !== '') { vcard.str_vcard += '\nX-SKYPE:' + youtube; }
             },
             required_check: function () {
                 var firstname = vcard.get_field("firstname"),
@@ -371,6 +377,8 @@
 
     }
 
+        var vcard_data = [];
+
     $('#file').change(function () {
 
         var fd = new FormData();
@@ -385,7 +393,10 @@
             processData: false,
             contentType: false,
             success: function (result) {
-                //console.log(result)
+                console.log(result)
+
+                vcard_data = result;
+
                 generateHtmlTable(result);
 
                 setDataTable();
@@ -426,7 +437,7 @@
         html += '</head>';
         html += '<tbody>';
         $.each(data, function (index, row) {
-            html += '<tr data-info=' + row['firstName'] + '>';
+            html += '<tr data-id=' + row.id + '>';
             $.each(row, function (index, colData) {
                 html += '<td>';
                 html += colData;
@@ -458,15 +469,12 @@
             //        }
             //    }
             //],
+            order: [[1, 'asc']],
             columnDefs: [
                 {
-                    target: 2,
+                    target: 0,
                     visible: false,
-                },
-                {
-                    target: 3,
-                    visible: false,
-                },
+                }
             ],
             destroy: true
         });
@@ -474,35 +482,41 @@
         table.on('select', function (e, dt, type, indexes) {
             if (type === 'row') {
                 var data = table.rows(indexes).data()[0];
+
+                var _vcard_data = vcard_data.find(x => x.id == data[0]);
+                console.log(_vcard_data);
+
                 //var selected = table.rows('.selected').data()[0];
                 //events.prepend('<div>' + selected + '</div>');
-                vcard.set_field("firstname", data[0])
-                vcard.set_field("lastname", data[1])
-                vcard.set_field("birthday", data[2])
-                vcard.set_field("gender", data[3])
-                vcard.set_field("homestreet", data[4])
-                vcard.set_field("homecity", data[5])
-                vcard.set_field("homeregion", data[6])
-                vcard.set_field("homepost", data[7])
-                vcard.set_field("homecountry", data[8])
-                vcard.set_field("hometel", data[9])
-                vcard.set_field("homeemail", data[10])
-                vcard.set_field("homeurl", data[11])
-                vcard.set_field("orgtitle", data[12])
-                vcard.set_field("orgname", data[13])
-                vcard.set_field("orgstreet", data[14])
-                vcard.set_field("orgcity", data[15])
-                vcard.set_field("orgregion", data[16])
-                vcard.set_field("orgpost", data[17])
-                vcard.set_field("orgcountry", data[18])
-                vcard.set_field("orgtel", data[19])
-                vcard.set_field("orgemail", data[20])
-                vcard.set_field("orgurl", data[21])
-                vcard.set_field("facebook", data[22])
-                vcard.set_field("twitter", data[23])
-                vcard.set_field("flickr", data[24])
-                vcard.set_field("youtube", data[25])
-                vcard.set_field("skype", data[26])
+                vcard.set_field(_vcard_data)
+
+                //vcard.set_field("firstname", _vcard_data.firstname)
+                //vcard.set_field("lastname", _vcard_data.firstname)
+                //vcard.set_field("birthday", _vcard_data.firstname)
+                //vcard.set_field("gender", _vcard_data.firstname)
+                //vcard.set_field("homestreet", _vcard_data.firstname)
+                //vcard.set_field("homecity", _vcard_data.firstname)
+                //vcard.set_field("homeregion", _vcard_data.firstname)
+                //vcard.set_field("homepost", _vcard_data.firstname)
+                //vcard.set_field("homecountry", _vcard_data.firstname)
+                //vcard.set_field("hometel", _vcard_data.firstname)
+                //vcard.set_field("homeemail", _vcard_data.firstname)
+                //vcard.set_field("homeurl", _vcard_data.firstname)
+                //vcard.set_field("orgtitle", data[12])
+                //vcard.set_field("orgname", data[13])
+                //vcard.set_field("orgstreet", data[14])
+                //vcard.set_field("orgcity", data[15])
+                //vcard.set_field("orgregion", data[16])
+                //vcard.set_field("orgpost", data[17])
+                //vcard.set_field("orgcountry", data[18])
+                //vcard.set_field("orgtel", data[19])
+                //vcard.set_field("orgemail", data[20])
+                //vcard.set_field("orgurl", data[21])
+                //vcard.set_field("facebook", data[22])
+                //vcard.set_field("twitter", data[23])
+                //vcard.set_field("flickr", data[24])
+                //vcard.set_field("youtube", data[25])
+                //vcard.set_field("skype", data[26])
 
             }
         });

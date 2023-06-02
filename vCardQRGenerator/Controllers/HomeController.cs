@@ -48,7 +48,7 @@ public class HomeController : Controller
         Console.WriteLine();
         var vcards = _csvService.ReadCSV<Vcard>(file[0].OpenReadStream());
 
-        return Ok(vcards);
+        return Ok(vcards.OrderBy(x=>x.FirstName));
     }
 
     [HttpPost("generate-qr")]

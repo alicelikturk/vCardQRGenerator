@@ -12,7 +12,9 @@ namespace vCardQRGenerator.Infrastructure.Service
             var reader = new StreamReader(file);
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                HeaderValidated = null
+                HeaderValidated = null,
+                MissingFieldFound=null,
+                BadDataFound=null,
             };
             var csv = new CsvReader(reader, config);
             var records = csv.GetRecords<T>();

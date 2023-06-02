@@ -7,12 +7,60 @@ namespace vCardQRGenerator.Models
 	public class Vcard
 	{
         [Optional]
+        [JsonPropertyName("id")]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Optional]
         [JsonPropertyName("firstname")]
         public string FirstName { get; set; } = "";
 
         [Optional]
         [JsonPropertyName("lastname")]
         public string LastName { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("personaltel")]
+        public string? PersonalTel { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgtitle")]
+        public string? OrgTitle { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgname")]
+        public string? OrgName { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgtel")]
+        public string? OrgTel { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgemail")]
+        public string? OrgEmail { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgurl")]
+        public string? OrgUrl { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgstreet")]
+        public string? OrgStreet { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgcity")]
+        public string? OrgCity { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgregion")]
+        public string? OrgRegion { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgpost")]
+        public string? OrgPost { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("orgcountry")]
+        public string? OrgCountry { get; set; } = "";
 
         [Optional]
         [JsonPropertyName("birthday")]
@@ -54,45 +102,6 @@ namespace vCardQRGenerator.Models
         [JsonPropertyName("homeurl")]
         public string? HomeUrl { get; set; } = "";
 
-        [Optional]
-        [JsonPropertyName("orgtitle")]
-        public string? OrgTitle { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgname")]
-        public string? OrgName { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgstreet")]
-        public string? OrgStreet { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgcity")]
-        public string? OrgCity { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgregion")]
-        public string? OrgRegion { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgpost")]
-        public string? OrgPost { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgcountry")]
-        public string? OrgCountry { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgtel")]
-        public string? OrgTel { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgemail")]
-        public string? OrgEmail { get; set; } = "";
-
-        [Optional]
-        [JsonPropertyName("orgurl")]
-        public string? OrgUrl { get; set; } = "";
 
         [Optional]
         [JsonPropertyName("facebook")]

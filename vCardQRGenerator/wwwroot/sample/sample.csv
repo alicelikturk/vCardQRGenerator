@@ -1,2 +1,2 @@
-﻿FirstName,LastName,Birthday,Gender,HomeStreet,HomeCity,HomeRegion,HomePost,HomeCountry,HomeTel,HomeEmail,HomeUrl,OrgTitle,OrgName,OrgStreet,OrgCity,OrgRegion,OrgPost,OrgCountry,OrgTel,OrgEmail,OrgUrl,Facebook,Twitter,Flickr,Youtube,Skype
-Gump,Forrest,,,,,,,,,,,Shrimp Man,Bubba Gump Shrimp Co.,,,,,,(111) 555-1212,GumpForrest@example.com,http://www.example.com,,,,,
+﻿FirstName,LastName,PersonalTel,OrgTitle,OrgName,OrgTel,OrgEmail,OrgUrl,OrgStreet,OrgCity,OrgRegion,OrgPost,OrgCountry,Birthday,Gender,HomeStreet,HomeCity,HomeRegion,HomePost,HomeCountry,HomeTel,HomeEmail,HomeUrl,Facebook,Twitter,Flickr,Youtube,Skype
+Gump,Forrest,(111) 555-1212,Shrimp Man,Bubba Gump Shrimp Co.,(111) 555-1212,GumpForrest@example.com,http://www.example.com,,,,,,,,,,,,,,,,,,,,
