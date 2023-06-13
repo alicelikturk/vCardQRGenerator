@@ -24,10 +24,14 @@
     <Folder Include="Infrastructure\Extensions\" />
     <Folder Include="Infrastructure\Service\" />
     <Folder Include="wwwroot\lib\datatables\" />
+    <Folder Include="wwwroot\lib\bootstrap-icon\" />
+    <Folder Include="wwwroot\vCardQR\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\datatables\" />
     <Content Remove="wwwroot\Sample\sample.csv" />
+    <Content Remove="wwwroot\lib\bootstrap-icon\" />
+    <Content Remove="wwwroot\vCardQR\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\sample\sample.csv" />

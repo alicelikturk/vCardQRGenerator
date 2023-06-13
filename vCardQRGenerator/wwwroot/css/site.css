@@ -20,3 +20,374 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+
+
+.bg-dark {
+    background-color: rgba(33,37,41,1) !important;
+}
+
+.row-custom {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.col-custom-25 {
+    flex: 0 0 auto;
+    width: 24.5%;
+}
+.col-custom-33 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+}
+.col-custom-50 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+.col-custom-66 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+}
+.col-custom-100 {
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+.card-custom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+.card-custom-header {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.card-custom-body {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+}
+
+.w-24 {
+    width: 24% !important;
+}
+
+.w-40{
+    width:40% !important;
+}
+
+.w-60 {
+    width: 60% !important;
+}
+
+.hr{
+    margin:10px 0px;
+}
+.reset-row-col{
+    padding:0;
+    margin:0;
+}
+.border-vertical-right {
+    border-right: 3px solid rgba(215,25,33,1)
+}
+.border-vertical-left {
+    border-left: 3px solid rgba(215,25,33,1)
+}
+
+.flex-f-start-center {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.flex-around-center {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.flex-between-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vcard-container {
+/*    border: 1px solid;*/
+    font-family: Arial,Helvetica,sans-serif;
+    line-height: 0px;
+    font-size: 1px;
+    padding: 0px !important;
+    border-spacing: 0px;
+    margin: 0px;
+    border-collapse: collapse;
+    width: 650px;
+}
+
+.vcard-logo-wrapper {
+    padding: 1px;
+    width: 150px;
+    height: 150px;
+}
+
+.vcard-qr-vcard-wrapper {
+    padding: 1px;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+.vcard-logo-wrapper-img {
+    max-width: 100%;
+}
+
+.vcard-qr-vcard-wrapper-img {
+    max-width: 100%;
+}
+
+
+
+.vcard-info-wrapper {
+    padding: 5px 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.vcard-info-fullname-wrapper {
+    text-align: justify;
+    width: 100%;
+}
+.vcard-info-contact-wrapper {
+    text-align: justify;
+    width: 100%;
+}
+.vcard-info-address-wrapper {
+    text-align: justify;
+    width: 100%;
+}
+.vcard-info-email-wrapper {
+    text-align: justify;
+    width: 100%;
+}
+.vcard-info-url-wrapper {
+    text-align: justify;
+    width: 100%;
+}
+.vcard-info-social-wrapper {
+    text-align: justify;
+    width: 100%;
+}
+
+.vcard-info-header-fullname {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22.0px;
+    font-style: normal;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000001;
+}
+
+
+
+.vcard-info-header-title {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: 700;
+    color: #000001;
+}
+
+
+
+.info-item-name {
+    color: rgba(215,25,33,1);
+    margin-right:5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: 700;
+}
+
+.vcard-info-phone {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: 700;
+    color: #000001;
+}
+.vcard-info-fax {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: 700;
+    color: #000001;
+}
+.vcard-info-address {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: 700;
+    color: #000001;
+}
+.vcard-info-email {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: 700;
+    color: #000001;
+}
+.vcard-info-url {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: 700;
+    color: #000001;
+}
+
+    
+
+.vcard-info-social-item  {
+    margin-right:10px;
+    padding:2px;
+/*    border:1px solid;*/
+/*    border-radius:50%;*/
+}
+
+
+
+.vcard-info-social-item-i {
+    font-size: 24.0px;
+    color: #333333;
+}
+
+    .vcard-info-social-item i[class*="facebook"] {
+        color: #1877f2;
+    }
+    .vcard-info-social-item i[class*="twitter"] {
+        color: #1da1f2;
+    }
+    .vcard-info-social-item i[class*="linkedin"] {
+        color: #0a66c2;
+    }
+    .vcard-info-social-item i[class*="youtube"] {
+        color: #ff0000;
+    }
+
+
+.v-card-shadow {
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+}
+
+.border-bottom-yellow {
+    border-bottom: 5px solid #f49a28;
+}
+
+.bar-vertical {
+    width: 100%;
+    height: calc(42px - 14px);
+}
+
+.hr-2 {
+    margin: 15px 0px;
+}
+
+.vcard-container-2 {
+    /*    border: 1px solid;*/
+    font-family: Arial,Helvetica,sans-serif;
+    line-height: 0px;
+    font-size: 1px;
+    padding: 0px !important;
+    border-spacing: 0px;
+    margin: 0px;
+    border-collapse: collapse;
+    min-width: 650px;
+    color:#ffffff;
+}
+
+.vcard-info-phone-2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 21px;
+    font-weight: 700;
+    color: #fffffd;
+}
+.vcard-info-phone2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 21px;
+    font-weight: 700;
+    color: #fffffd;
+}
+.vcard-info-address-2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 21px;
+    font-weight: 700;
+    color: #fffffd;
+}
+.vcard-info-email-2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 21px;
+    font-weight: 700;
+    color: #fffffd;
+}
+.vcard-info-url-2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 21px;
+    font-weight: 700;
+    color: #fffffd;
+}
+
+.vcard-info-header-fullname-2 {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22.0px !important;
+    font-style: normal;
+    line-height: 33px;
+    font-weight: 700;
+    color: #fffffd;
+}
+
+.vcard-info-header-title-2 {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 21px;
+    font-weight: 700;
+    color: #fffffd;
+}
+
+.info-item-name-2 {
+    color: #f49a28;
+    margin-right: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14.0px;
+    font-style: normal;
+    line-height: 21px;
+    font-weight: 700;
+}
+
+

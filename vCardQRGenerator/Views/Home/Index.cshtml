@@ -2,23 +2,26 @@
     ViewData["Title"] = "QR vCard";
 }
 
-<style>
-    #field, #field2, #field3 {
-        float: left;
-    }
 
-    #businessCardInfo {
-        width: 72%;
-        height: 100%;
-    }
-</style>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="/" class="rounded me-2" width="20" height="20" alt="...">
+            <strong class="me-auto">vCard HTML Kopyala</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            ...
+        </div>
+    </div>
+</div>
 
 
 <div class="text-center">
     <h1 class="display-5">QR vCard</h1>
     <p>Kurumsal logolu dijital qr kartvizit</p>
 </div>
-
 
 <div class="row">
     <div class="col-3">
@@ -58,7 +61,7 @@
                     </div>
                 </form>
                 <div id="csv-display" class="table-responsive">
-                     
+
                 </div>
             </div>
         </div>
@@ -68,6 +71,11 @@
             <div class="card-body">
                 <form action="" method="post">
                     <div class="row">
+
+                        <div class="col-12">
+
+                        </div>
+
                         <div class="col-3">
                             <fieldset>
                                 <legend>Kişi</legend>
@@ -116,25 +124,28 @@
                         <div class="col-3">
                             <fieldset>
                                 <legend>Sosyal Ağlar</legend>
-                                <div class="mb-1"><label>Facebook</label><input class="form-control" type="text" name="facebook" value="http://www.facebook.com/"></div>
-                                <div class="mb-1"><label>Twitter</label><input class="form-control" type="text" name="twitter" value="http://www.twitter.com/"></div>
-                                <div class="mb-1"><label>Flickr</label><input class="form-control" type="text" name="flickr" value="http://www.flickr.com/"></div>
-                                <div class="mb-1"><label>Youtube</label><input class="form-control" type="text" name="youtube" value="http://www.youtube.com/"></div>
+                                <div class="mb-1"><label>Facebook</label><input class="form-control" type="text" name="facebook" value="https://www.facebook.com/"></div>
+                                <div class="mb-1"><label>Twitter</label><input class="form-control" type="text" name="twitter" value="https://www.twitter.com/"></div>
+                                <div class="mb-1"><label>Flickr</label><input class="form-control" type="text" name="flickr" value="https://www.flickr.com/"></div>
+                                <div class="mb-1"><label>Youtube</label><input class="form-control" type="text" name="youtube" value="https://www.youtube.com/"></div>
                                 <div class="mb-1"><label>Skype</label><input class="form-control" type="text" name="skype"></div>
+                                <div class="mb-1"><label>LinkedIn</label><input class="form-control" type="text" name="linkedin" value="https://www.linkedin.com"></div>
                             </fieldset>
                         </div>
+
+                        <div class="col-12">
+                            <p class="w-100 text-end">
+                                <a class="btn btn-dark" id="generateQR">
+                                    <i class="bi bi-qr-code"></i>
+                                    <span>QR Kod Oluştur</span>
+                                </a>
+                            </p>
+                        </div>
                     </div>
-                   
-                    
-                    <div class="col-12">
-                        <p class="w-100 text-end">
-                            <a class="btn btn-dark" id="generateQR">
-                                <i class="bi bi-qr-code"></i>
-                                <span>QR Kod Oluştur</span>
-                            </a>
-                        </p>
-                    </div>
-                    
+
+
+
+
                 </form>
             </div>
         </div>
@@ -160,383 +171,657 @@
 
                 <p>Bu QR vCard aşağıdaki bilgileri kullanarak oluşturuldu.</p>
                 <textarea name="vcard" class="w-100" rows="10"></textarea>
+
             </div>
         </div>
     </div>
 </div>
 
+<div class="row mt-5">
+    <div class="col-6">
+        <p class="w-100 text-start">
+            <button class="btn btn-outline-dark" onclick="copy()">
+                <i class="bi bi-clipboard-plus-fill"></i>
+                <span>Kopyala</span>
+            </button>
+            <hr />
+        </p>
+        <div id="v-card-export" class="vcard-container-base">
+            <br />
+            <p>
+                Kind Regards,
+            </p>
+            <div class="vcard-container v-card-shadow">
+                <div class="row-custom">
+                    <div class="col-custom-25 border-vertical-right align-self-center">
+                        <div style="">
+                            <div class="vcard-logo-wrapper border" style="margin:auto">
+                                <a href="" id="vcard-logo-link" target="_blank" rel="nofollow">
+                                    <img id="vcard-logo" class="vcard-logo-wrapper-img border" src="https://stilevsapp.io/assets/images/logos/logo.png" alt="logo" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-custom-50 align-self-center py-2">
+                        <div class="vcard-info-wrapper">
+                            <div style="text-align: -webkit-center;">
+                                <div class="vcard-info-fullname-wrapper">
+                                    <h1 class="vcard-info-header-fullname">
+                                        <span id="vcard-info-firstname" class="vcard-info-firstname">İsim</span>
+                                        <span id="vcard-info-lastname" class="vcard-info-lastname">Soyisim</span>
+                                    </h1>
+                                    <h2 class="vcard-info-header-title">
+                                        <span id="vcard-info-title" class="vcard-info-title">İş Ünvanı</span>
+                                    </h2>
+                                </div>
+                            </div>
 
+                            <div class="hr"></div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="vcard-info-contact-wrapper">
+                                    <span class="info-item-name">P.</span>
+                                    <a href="tel:+902128767578" id="vcard-info-phone" class="vcard-info-phone">+(90) 212 876 75 78</a>
+                                    <span class="info-item-name ms-2">F.</span>
+                                    <span id="vcard-info-fax" class="vcard-info-fax">+(90) 212 876 75 88</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="vcard-info-address-wrapper">
+                                    <span class="info-item-name">A.</span>
+                                    <span id="vcard-info-address" class="vcard-info-address">Sokak, Şehir Ülke</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="vcard-info-email-wrapper">
+                                    <span class="info-item-name">E.</span>
+                                    <a id="vcard-info-email" class="vcard-info-email" target="_blank" rel="nofollow"
+                                       href="mailto:eposta@domain.com">eposta@domain.com</a>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="vcard-info-url-wrapper">
+                                    <span class="info-item-name">W.</span>
+                                    <a id="vcard-info-url" class="vcard-info-url" target="_blank" rel="nofollow"
+                                       href="https://www.domain.com">www.domain.com</a>
+
+                                </div>
+                            </div>
+
+                            <div class="hr"></div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="vcard-info-social-wrapper">
+                                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                                        <div class="vcard-info-social-item">
+                                            <a id="vcard-social-facebook" class="text-decoration-none" target="_blank" rel="nofollow" href="https://tr-tr.facebook.com">
+                                                <i class="bi bi-facebook vcard-info-social-item-i"></i>
+                                            </a>
+                                        </div>
+                                        <div class="vcard-info-social-item">
+                                            <a id="vcard-social-twitter" class="text-decoration-none" target="_blank" rel="nofollow" href="https://twitter.com">
+                                                <i class="bi bi-twitter vcard-info-social-item-i"></i>
+                                            </a>
+                                        </div>
+                                        <div class="vcard-info-social-item">
+                                            <a id="vcard-social-linkedin" class="text-decoration-none" target="_blank" rel="nofollow" href="https://tr.linkedin.com/">
+                                                <i class="bi bi-linkedin vcard-info-social-item-i"></i>
+                                            </a>
+                                        </div>
+                                        <div class="vcard-info-social-item">
+                                            <a id="vcard-social-youtube" class="text-decoration-none" target="_blank" rel="nofollow" href="https://www.youtube.com">
+                                                <i class="bi bi-youtube vcard-info-social-item-i"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-custom-25 border-vertical-left align-self-center">
+                        <div style="">
+                            <div class="vcard-qr-vcard-wrapper border" style="margin:auto">
+                                <img id="vcard-qr-code" class="vcard-qr-vcard-wrapper-img" src="https://stilevsapp.io/assets/images/logos/logo.png" alt="qr" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+
+        <p class="w-100 text-end">
+            <button class="btn btn-outline-dark" onclick="copy2()">
+                <i class="bi bi-clipboard-plus-fill"></i>
+                <span>Kopyala</span>
+            </button>
+            <hr />
+        </p>
+        <div id="v-card-export-2">
+            <div class="v-card-shadow vcard-container-2 vcard-container-base-2">
+                <div class="py-3 bg-dark border-bottom-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="border-bottom-yellow bar-vertical me-3"></div>
+                        <a href="" class="pe-2" id="vcard-logo-link-2" target="_blank" rel="nofollow">
+                            <img id="vcard-logo-2" src="http://www.homevs.com.tr/images/homevs_logo.png" height="42" class="" alt="" />
+                        </a>
+                    </div>
+                </div>
+                <div class="py-3 bg-dark">
+                    <div class="vcard-container">
+                        <div class="row-custom">
+                            <div class="col-custom-33 align-self-center">
+                                <div style="">
+                                    <div class="vcard-qr-vcard-wrapper border">
+                                        <img id="vcard-qr-code-2" class="vcard-qr-vcard-wrapper-img" src="http://www.homevs.com.tr/images/homevs_logo.png" alt=" " />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-custom-66 align-self-center">
+                                <div class="vcard-info-wrapper">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div class="vcard-info-fullname-wrapper">
+                                            <h1 class="vcard-info-header-fullname-2">
+                                                <span id="vcard-info-firstname-2" class="vcard-info-firstname-2">İsim</span>
+                                                <span id="vcard-info-lastname-2" class="vcard-info-lastname-2">Soyisim</span>
+                                            </h1>
+                                            <h2 class="vcard-info-header-title-2">
+                                                <span id="vcard-info-title-2" class="vcard-info-title-2">İş Ünvanı</span>
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-2"></div>
+
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div class="vcard-info-contact-wrapper w-40">
+                                            <span class="info-item-name-2">P.</span>
+                                            <a id="vcard-info-phone-2" class="vcard-info-phone-2" href="tel:+902128767578">+(90) 212 876 75 78</a>
+                                        </div>
+                                        <div class="vcard-info-email-wrapper w-60">
+                                            <span class="info-item-name-2 ms-2">E.</span>
+                                            <a id="vcard-info-email-2" class="vcard-info-email-2" target="_blank" rel="nofollow"
+                                               href="mailto:eposta@domain.com">eposta@domain.com</a>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div class="vcard-info-address-wrapper">
+                                            <span class="info-item-name-2">A.</span>
+                                            <span id="vcard-info-address-2" class="vcard-info-address-2">Sokak, Şehir Ülke</span>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div class="vcard-info-email-wrapper w-40">
+                                            <span class="info-item-name-2">P.</span>
+                                            <a id="vcard-info-phone2" class="vcard-info-phone-2" href="tel:+902128767578">+(90) 212 876 75 78</a>
+                                        </div>
+                                        <div class="vcard-info-url-wrapper w-60">
+                                            <span class="info-item-name-2 ms-2">W.</span>
+                                            <a id="vcard-info-url-2" class="vcard-info-url-2" target="_blank" rel="nofollow"
+                                               href="https://www.domain.com">www.domain.com</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+        <hr />
+    <p class="px-3 w-100">
+        Designing HTML e-mails is not like designing HTML websites. There's a huge technology gap between e-mail clients and web browsers.
+    </p>
+</div>
 
 
 
 
 @section scripts {
-    <script>
-        /**
-* TODO:
-* - add picture and company logo
-*/
-        var vcard = {
-            str_start: 'BEGIN:VCARD\nVERSION:3.0\n',
-            str_vcard: 'BEGIN:VCARD\nVERSION:3.0\n',
-            str_end: '\nEND:VCARD',
-            goog_chart: 'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=',
-            form: [],
-            set_field: function (data) {
-                vcard.form = $('form').serializeArray();
-                for (var i in vcard.form) {
-                    $("[name='" + vcard.form[i].name + "']").val(data[vcard.form[i].name])
-                }
-            },
-            get_field: function (field) {
-                for (var i in vcard.form) {
-                    if (vcard.form[i].name === field) {
-                        return vcard.form[i].value.replace(/^\s+|\s+$/g, "");
-                    }
-                }
-            },
-            add_you: function () {
-                var firstname = vcard.get_field("firstname"),
-                    lastname = vcard.get_field("lastname"),
-                    birthday = vcard.get_field('birthday'),
-                    gender = vcard.get_field('gender');
-
-                vcard.str_vcard += 'N:' + lastname + ';' + firstname + '\n' +
-                    'FN:' + firstname + ' ' + lastname;
-                // TODO convert date to american format
-                if (birthday !== '') { vcard.str_vcard += '\nBDAY:' + birthday; }
-
-                if (gender !== '') { vcard.str_vcard += '\nX-GENDER:' + gender; }
-            },
-            add_address: function () {
-                var homestreet = vcard.get_field("homestreet"),
-                    homecity = vcard.get_field("homecity"),
-                    homeregion = vcard.get_field("homeregion"),
-                    homepost = vcard.get_field("homepost"),
-                    homecountry = vcard.get_field("homecountry"),
-                    orgstreet = vcard.get_field("orgstreet"),
-                    orgcity = vcard.get_field("orgcity"),
-                    orgregion = vcard.get_field("orgregion"),
-                    orgpost = vcard.get_field("orgpost"),
-                    orgcountry = vcard.get_field("orgcountry");
-
-                if (homestreet + homecity + homeregion + homepost + homecountry !== '') {
-                    vcard.str_vcard += '\nADR;TYPE=home:;;' + homestreet + ';' + homecity + ';' + homeregion +
-                        ';' + homepost + ';' + homecountry;
-                }
-                if (orgstreet + orgcity + orgregion + orgpost + orgcountry !== '') {
-                    vcard.str_vcard += '\nADR;TYPE=work:;;' + orgstreet + ';' + orgcity + ';' + orgregion +
-                        ';' + orgpost + ';' + orgcountry;
-                }
-            },
-            add_tel: function () {
-                var personal = vcard.get_field("personaltel"),
-                    home = vcard.get_field("hometel"),
-                    work = vcard.get_field("orgtel");
-
-                if (personal !== '') { vcard.str_vcard += '\nTEL;TYPE=mobile:' + personal; }
-
-                if (home !== '') { vcard.str_vcard += '\nTEL;TYPE=home:' + home; }
-
-                if (work !== '') { vcard.str_vcard += '\nTEL;TYPE=work:' + work; }
-            },
-            add_email: function () {
-                var home = vcard.get_field("homeemail"),
-                    work = vcard.get_field("orgemail");
-
-                if (home !== '') { vcard.str_vcard += '\nEMAIL;TYPE=internet,home:' + home; }
-
-                if (work !== '') { vcard.str_vcard += '\nEMAIL;TYPE=internet,work:' + work; }
-            },
-            add_url: function () {
-                var home = vcard.get_field("homeurl"),
-                    work = vcard.get_field("orgurl");
-
-                if (home !== '') { vcard.str_vcard += '\nURL;TYPE=home:' + home; }
-
-                if (work !== '') { vcard.str_vcard += '\nURL;TYPE=work:' + work; }
-            },
-            add_work: function () {
-                var name = vcard.get_field("orgname"),
-                    title = vcard.get_field("orgtitle");
-
-                if (name !== '') { vcard.str_vcard += '\nORG:' + name; }
-
-                if (title !== '') { vcard.str_vcard += '\nTITLE:' + title; }
-            },
-            add_social: function () {
-                var facebook = vcard.get_field("facebook"),
-                    twitter = vcard.get_field("twitter"),
-                    youtube = vcard.get_field("youtube"),
-                    skype = vcard.get_field("skype"),
-                    flickr = vcard.get_field("flickr");
-
-                if (facebook !== '') { vcard.str_vcard += '\nsocialProfile;type=facebook:' + facebook; }
-
-                if (twitter !== '') { vcard.str_vcard += '\nsocialProfile;type=twitter:' + twitter; }
-
-                if (flickr !== '') { vcard.str_vcard += '\nalbum;type=photo:' + flickr; }
-
-                if (youtube !== '') { vcard.str_vcard += '\nalbum;type=video:' + skype; }
-
-                if (skype !== '') { vcard.str_vcard += '\nX-SKYPE:' + youtube; }
-            },
-            required_check: function () {
-                var firstname = vcard.get_field("firstname"),
-                    lastname = vcard.get_field("lastname"),
-                    msg = 'Field%FIELD% %NAME% %VERB% required.',
-                    fields = [];
-
-                if (firstname === '') { fields.push('First name'); }
-
-                if (lastname === '') { fields.push('Last name'); }
-
-                if (fields.length === 0) { return ''; }
-
-                msg = msg.replace('%NAME%', fields.join(', '));
-
-                msg = msg.replace('%FIELD%', (fields.length === 1) ? '' : 's');
-
-                msg = msg.replace('%VERB%', (fields.length === 1) ? 'is' : 'are');
-
-                return msg;
-            },
-            save: function () {
-                vcard.form = $('form').serializeArray();
-
-                var required_check_output = vcard.required_check();
-
-                if (required_check_output !== '') {
-                    alert(required_check_output);
-                    return;
-                }
-
-                vcard.add_you();
-
-                vcard.add_address();
-
-                vcard.add_tel();
-
-                vcard.add_email();
-
-                vcard.add_url();
-
-                vcard.add_work();
-
-                vcard.add_social();
-
-                vcard.str_vcard += vcard.str_end;
-
-                $('textarea[name="vcard"]').val(vcard.str_vcard);
-
-                var str_vcard_replaced = vcard.str_vcard.replace(/\n/g, '%0A');
-
-                $('#qr').attr('src', vcard.goog_chart + str_vcard_replaced);
-
-                vcard.str_vcard = vcard.str_start;
-
-                setQR(str_vcard_replaced);
-            }
-        };
-
-        $(function () {
-            $('#generateQR').click(vcard.save);
-        });
-    </script>
 
     <script>
-
         function setQR(vCard) {
+
+            let fileName = vcard.get_field("firstname").toLocaleLowerCase() + "_" + vcard.get_field("lastname").toLocaleLowerCase();
 
             var fd = new FormData();
             var fileInput = $('#file-logo')[0];
             var file = fileInput.files[0];
             fd.append('file', file);
             fd.append('vCardInfo', vCard);
+            fd.append('fileName', fileName);
 
             var data = { vCardInfo: vCard, file: file };
             console.log(data)
 
-        jQuery.ajax({
-            type: 'POST',
-            url: "@Url.Action("GetQrCode", "Home")",
-            data: fd,
-            processData: false,
-            contentType: false,
-            success: function (result) {
+            jQuery.ajax({
+                type: 'POST',
+                url: "@Url.Action("GetQrCode", "Home")",
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function (result) {
 
-                $("#qr-server").attr('src', result);
-                $("#qr-download").attr('href', result);
+                    console.log(result)
 
-                let fileName = vcard.get_field("firstname").toLocaleLowerCase() + "_" + vcard.get_field("lastname").toLocaleLowerCase();
-                $("#qr-download").attr('download', fileName + ".png");
-                $("#qr-download").removeClass('d-none');
+                    //$("#qr-server").attr('src', 'https://homevs.com.tr/vCardQRGenerator/'+result.path);
+                    //$("#qr-download").attr('href', 'https://homevs.com.tr/vCardQRGenerator/' + result.path);
+                    $("#qr-server").attr('src', result.data);
+                    $("#qr-download").attr('href', result.data);
 
-            }
-        });
+                    $("#qr-download").attr('download', fileName + ".png");
+                    $("#qr-download").removeClass('d-none');
 
-    }
+
+                    // vCard - QR Code
+                    //$("#vcard-qr-code").attr('src', 'https://homevs.com.tr/vCardQRGenerator/' +result.data);
+                    $("#vcard-qr-code").attr('src', result.data);
+                    $("#vcard-qr-code-2").attr('src', 'https://homevs.com.tr/vCardQRGenerator/' +result.path);
+
+
+                }
+            });
+
+        }
+
 
         var vcard_data = [];
 
-    $('#file').change(function () {
+        $('#file').change(function () {
 
-        var fd = new FormData();
-        var files = $('#file')[0].files[0];
-        fd.append('file', files);
-        //console.log(files)
+            var fd = new FormData();
+            var files = $('#file')[0].files[0];
+            fd.append('file', files);
+            //console.log(files)
 
-        jQuery.ajax({
-            type: 'POST',
-            url: "@Url.Action("GetCSVFile", "Home")",
-            data: fd,
-            processData: false,
-            contentType: false,
-            success: function (result) {
-                console.log(result)
+            jQuery.ajax({
+                type: 'POST',
+                url: "@Url.Action("GetCSVFile", "Home")",
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    console.log(result)
 
-                vcard_data = result;
+                    vcard_data = result;
 
-                generateHtmlTable(result);
+                    generateHtmlTable(result);
 
-                setDataTable();
-            }
+                    setDataTable();
+                }
+            });
+
+
         });
 
+        $('#file-logo').change(function () {
 
-    });
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
 
-    $('#file-logo').change(function () {
+                reader.onload = function (e) {
+                    $('#logo').attr('src', e.target.result);
 
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
+                    // vCard - Logo
+                    $("#vcard-logo").attr('src', e.target.result);
+                    $("#liveToast img").attr('src', e.target.result);
 
-            reader.onload = function (e) {
-                $('#logo').attr('src', e.target.result);
+                    console.log(e.target.result)
+
+                }
+
+                reader.readAsDataURL(this.files[0]);
             }
 
-            reader.readAsDataURL(this.files[0]);
-        }
-
-    });
+        });
 
 
 
         function generateHtmlTable(data) {
             $('#csv-display').empty();
-        var html = '';
-        html += '<table id="vcard-list" class="table table-condensed table-hover table-striped table-sm">';
-        html += '<thead>';
-        html += '<tr>';
-        for (var key in data[0]) {
-            html += '<th>';
-            html += key;
-            html += '</th>';
-        }
-        html += '</tr>';
-        html += '</head>';
-        html += '<tbody>';
-        $.each(data, function (index, row) {
-            html += '<tr data-id=' + row.id + '>';
-            $.each(row, function (index, colData) {
-                html += '<td>';
-                html += colData;
-                html += '</td>';
-            });
-            html += '</tr>';
-        });
-        html += '</tbody>';
-        html += '</table>';
-
-        $('#csv-display').append(html);
-    }
-
-    function setDataTable() {
-        var events = $('#csv-display');
-        var table = $('#vcard-list').DataTable({
-            dom: 'Bfrtip',
-            select: true,
-            //buttons: [
-            //    {
-            //        text: 'Bilgileri Doldur',
-            //        action: function () {
-            //            var selected = table.rows('.selected').data()[0];
-            //            //events.prepend('<div>' + selected + '</div>');
-            //            vcard.set_field("firstname", selected[0])
-            //            vcard.set_field("lastname", selected[1])
-            //            vcard.set_field("orgemail", selected[2])
-            //            vcard.set_field("orgtel", selected[3])
-            //        }
-            //    }
-            //],
-            order: [[1, 'asc']],
-            columnDefs: [
-                {
-                    target: 0,
-                    visible: false,
-                }
-            ],
-            destroy: true
-        });
-
-        table.on('select', function (e, dt, type, indexes) {
-            if (type === 'row') {
-                var data = table.rows(indexes).data()[0];
-
-                var _vcard_data = vcard_data.find(x => x.id == data[0]);
-                console.log(_vcard_data);
-
-                //var selected = table.rows('.selected').data()[0];
-                //events.prepend('<div>' + selected + '</div>');
-                vcard.set_field(_vcard_data)
-
-                //vcard.set_field("firstname", _vcard_data.firstname)
-                //vcard.set_field("lastname", _vcard_data.firstname)
-                //vcard.set_field("birthday", _vcard_data.firstname)
-                //vcard.set_field("gender", _vcard_data.firstname)
-                //vcard.set_field("homestreet", _vcard_data.firstname)
-                //vcard.set_field("homecity", _vcard_data.firstname)
-                //vcard.set_field("homeregion", _vcard_data.firstname)
-                //vcard.set_field("homepost", _vcard_data.firstname)
-                //vcard.set_field("homecountry", _vcard_data.firstname)
-                //vcard.set_field("hometel", _vcard_data.firstname)
-                //vcard.set_field("homeemail", _vcard_data.firstname)
-                //vcard.set_field("homeurl", _vcard_data.firstname)
-                //vcard.set_field("orgtitle", data[12])
-                //vcard.set_field("orgname", data[13])
-                //vcard.set_field("orgstreet", data[14])
-                //vcard.set_field("orgcity", data[15])
-                //vcard.set_field("orgregion", data[16])
-                //vcard.set_field("orgpost", data[17])
-                //vcard.set_field("orgcountry", data[18])
-                //vcard.set_field("orgtel", data[19])
-                //vcard.set_field("orgemail", data[20])
-                //vcard.set_field("orgurl", data[21])
-                //vcard.set_field("facebook", data[22])
-                //vcard.set_field("twitter", data[23])
-                //vcard.set_field("flickr", data[24])
-                //vcard.set_field("youtube", data[25])
-                //vcard.set_field("skype", data[26])
-
+            var html = '';
+            html += '<table id="vcard-list" class="table table-condensed table-hover table-striped table-sm">';
+            html += '<thead>';
+            html += '<tr>';
+            for (var key in data[0]) {
+                html += '<th>';
+                html += key;
+                html += '</th>';
             }
+            html += '</tr>';
+            html += '</head>';
+            html += '<tbody>';
+            $.each(data, function (index, row) {
+                html += '<tr data-id=' + row.id + '>';
+                $.each(row, function (index, colData) {
+                    html += '<td>';
+                    html += colData;
+                    html += '</td>';
+                });
+                html += '</tr>';
+            });
+            html += '</tbody>';
+            html += '</table>';
+
+            $('#csv-display').append(html);
+        }
+
+        function setDataTable() {
+    var events = $('#csv-display');
+    var table = $('#vcard-list').DataTable({
+        dom: 'Bfrtip',
+        select: true,
+        order: [[1, 'asc']],
+        columnDefs: [
+            {
+                target: 0,
+                visible: false,
+            }
+        ],
+        destroy: true
+    });
+
+    table.on('select', function (e, dt, type, indexes) {
+        if (type === 'row') {
+            var data = table.rows(indexes).data()[0];
+
+            var _vcard_data = vcard_data.find(x => x.id == data[0]);
+
+            vcard.set_field(_vcard_data)
+
+
+            fillVCardInfoSelected(_vcard_data);
+
+        }
+    });
+
+}
+        function fillVCardInfoSelected(data) {
+            console.log(data)
+            console.log(data.firstname)
+
+            $('#vcard-info-firstname').text(data.firstname);
+            $('#vcard-info-lastname').text(data.lastname);
+            $('#vcard-info-title').text(data.orgtitle);
+
+            $('#vcard-info-phone').text(data.personaltel)// a
+            $('#vcard-info-phone').attr('href', 'tel:' +data.personaltel)
+
+            $('#vcard-info-fax').text(data.orgtel)
+            $('#vcard-info-address').text(data.orgstreet + ' ' + data.orgcity + ' ' + data.orgregion + ' ' + data.orgpost + ' ' + data.orgcountry)
+
+            $('#vcard-info-email').text(data.orgemail)// a
+            $('#vcard-info-email').attr('href', 'mailto:'+data.orgemail)
+
+            $('#vcard-info-url').text(data.orgurl)// a
+            $('#vcard-info-url').attr('href', data.orgurl)
+
+            $('#vcard-social-facebook').attr('href', data.facebook)// a
+            $('#vcard-social-twitter').attr('href', data.twitter)// a
+            $('#vcard-social-linkedin').attr('href', data.linkedin)// a
+            $('#vcard-social-youtube').attr('href', data.youtube)// a
+
+
+            $('#vcard-info-firstname-2').text(data.firstname);
+            $('#vcard-info-lastname-2').text(data.lastname);
+            $('#vcard-info-title-2').text(data.orgtitle);
+
+            $('#vcard-info-phone-2').text(data.personaltel)// a
+            $('#vcard-info-phone-2').attr('href', 'tel:' +data.personaltel)
+
+            $('#vcard-info-phone2').text(data.orgtel)
+            $('#vcard-info-phone2').attr('href', 'tel:' + data.orgtel)
+
+            $('#vcard-info-address-2').text(data.orgstreet + ' ' + data.orgcity + ' ' + data.orgregion + ' ' + data.orgpost + ' ' + data.orgcountry)
+
+            $('#vcard-info-email-2').text(data.orgemail)// a
+            $('#vcard-info-email-2').attr('href', 'mailto:' +data.orgemail)
+
+            $('#vcard-info-url-2').text(data.orgurl)// a
+            $('#vcard-info-url-2').attr('href', data.orgurl)
+        }
+
+        function fillVCardInfo() {
+
+            $('#vcard-logo-link').attr('href', vcard.get_field("orgurl"))
+
+            $('#vcard-info-firstname').text(vcard.get_field("firstname"));
+            $('#vcard-info-lastname').text(vcard.get_field("lastname"));
+            $('#vcard-info-title').text(vcard.get_field("orgtitle"));
+
+            $('#vcard-info-phone').text(vcard.get_field("personaltel"))// a
+            $('#vcard-info-phone').attr('href', 'tel:' +vcard.get_field("personaltel"))
+
+            $('#vcard-info-fax').text(vcard.get_field("orgtel"))
+
+            let address = vcard.get_field("orgstreet") + ' ' +
+                vcard.get_field("orgcity") + ' ' +
+                vcard.get_field("orgregion") + ' ' +
+                vcard.get_field("orgpost") + ' ' +
+                vcard.get_field("orgcountry")
+
+            $('#vcard-info-address').text(address)
+
+            $('#vcard-info-email').text(vcard.get_field("orgemail"))// a
+            $('#vcard-info-email').attr('href', 'mailto:' +vcard.get_field("orgemail"))
+
+            $('#vcard-info-url').text(vcard.get_field("orgurl"))// a
+            $('#vcard-info-url').attr('href', vcard.get_field("orgurl"))
+
+            $('#vcard-social-facebook').attr('href', vcard.get_field("facebook"))// a
+            $('#vcard-social-twitter').attr('href', vcard.get_field("twitter"))// a
+            $('#vcard-social-linkedin').attr('href', vcard.get_field("linkedin"))// a
+            $('#vcard-social-youtube').attr('href', vcard.get_field("youtube"))// a
+
+
+
+            $('#vcard-logo-link-2').attr('href', vcard.get_field("orgurl"))
+
+            $('#vcard-info-firstname-2').text(vcard.get_field("firstname"));
+            $('#vcard-info-lastname-2').text(vcard.get_field("lastname"));
+            $('#vcard-info-title-2').text(vcard.get_field("orgtitle"));
+
+            $('#vcard-info-phone-2').text(vcard.get_field("personaltel"))// a
+            $('#vcard-info-phone-2').attr('href', 'tel:' +vcard.get_field("personaltel"))
+
+            $('#vcard-info-phone2').text(vcard.get_field("orgtel"))
+            $('#vcard-info-phone2').attr('href', 'tel:' + vcard.get_field("orgtel"))
+
+            $('#vcard-info-address-2').text(address)
+
+            $('#vcard-info-email-2').text(vcard.get_field("orgemail"))// a
+            $('#vcard-info-email-2').attr('href', 'mailto:' +vcard.get_field("orgemail"))
+
+            $('#vcard-info-url-2').text(vcard.get_field("orgurl"))// a
+            $('#vcard-info-url-2').attr('href', vcard.get_field("orgurl"))
+        }
+
+    </script>
+
+
+
+    <script>$(function () {
+            $('#generateQR').click(vcard.save);
         });
 
-    }
+        var html = '';
+        function setHtml() {
+            html = '<!DOCTYPE html>';
+            html += '<html xmlns="http://www.w3.org/1999/xhtml">';
+            html += '<head>';
+            html += '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+            //html += '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">'
+            //html += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">'
+            //html += '<link rel="stylesheet" href="https://homevs.com.tr/vCardQRGenerator/css/site.css?v=nCDRAXMctndN8jwj2MGmqGIDJB-i9ekoEJQnZOgRUSA">'
+            html += '</head>';
+            html += '<body>';
+        }
+
+        function showToastMessage(message) {
+            const toastLiveExample = document.getElementById('liveToast')
+            $('#liveToast .toast-body').html(message);
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()
+        }
+
+        //const toastTrigger = document.getElementById('liveToastBtn')
+        //const toastLiveExample = document.getElementById('liveToast')
+
+        //if (toastTrigger) {
+        //    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+        //    toastTrigger.addEventListener('click', () => {
+        //        toastBootstrap.show()
+        //    })
+        //}
+
+
+        function copy() {
+            setHtml();
+            //const content = $('#v-card-export')
+            //html += content.html();
+            const e = document.querySelector('.vcard-container-base')
+            listChildren(e);
+
+            html += htmlT;
+            html += '</body>';
+            html += '</html>';
+
+            navigator.clipboard.writeText(html).then(() => {
+                console.log('HTML panoya kopyalandı.');
+                showToastMessage('HTML panoya kopyalandı.');
+                html = '';
+            }, function (err) {
+                console.error('Could not copy text.\nTried to copy the following:\n', html);
+
+            });
+        }
+        function copy2() {
+            setHtml();
+            //const content = $('#v-card-export-2')
+            //html += content.html();
+            const e = document.querySelector('.vcard-container-base-2')
+            listChildren(e);
+
+            html += htmlT;
+            html += '</body>';
+            html += '</html>';
+
+            navigator.clipboard.writeText(html).then(() => {
+                console.log('HTML panoya kopyalandı.');
+                showToastMessage('HTML panoya kopyalandı.');
+                html = '';
+            }, function (err) {
+                console.error('Could not copy text.\nTried to copy the following:\n', html);
+            });
+
+            
+        }
 
 
 
+        var proto = Element.prototype;
+        var slice = Function.call.bind(Array.prototype.slice);
+        var matches = Function.call.bind(proto.matchesSelector ||
+            proto.mozMatchesSelector || proto.webkitMatchesSelector ||
+            proto.msMatchesSelector || proto.oMatchesSelector);
+
+        var elementMatchCSSRule = function (element, cssRule) {
+            return matches(element, cssRule.selectorText);
+        };
+
+        var styleSheets = ['bootstrap.min', 'bootstrap-icons','site'];
+        var cssRules = slice(document.styleSheets).filter(styleSheet=>{
+           
+            let fileName = styleSheet.href.split('/').pop()
+            fileName = fileName.substring(0, fileName.indexOf('.css'));
+
+            return styleSheets.includes(fileName);
+        }).reduce(function (rules, styleSheet) {
+            console.log(slice(styleSheet.cssRules))
+            //console.log("")
+            return rules.concat(slice(styleSheet.cssRules));
+        }, []);
+
+        var getAppliedCss = function (elm) {
+            var elementRules = cssRules//.filter(elementMatchCSSRule.bind(null, elm));
+
+            //console.log('cssRules')
+            //console.log(cssRules)
+
+            var classList = [];
+            classList = $(elm).attr("class").split(/\s+/);
+            
+
+            console.log('classList',classList)
+            classList = classList.map(i => '.' + i);
+
+            var elementRules2 = cssRules.filter(x => {
+                if (!x.selectorText)
+                    return false;
+
+                return classList.includes(x.selectorText);
+            });
+            
+            console.log(elementRules2)
+
+            var rules = [];
+            if (elementRules2.length) {
+                for (i = 0; i < elementRules2.length; i++) {
+                    console.log(elementRules2[i].cssText)
+                    rules.push(elementRules2[i].cssText)
+                }
+            }
+
+            $(elm).removeClass();
+
+            return rules.map(r => {
+                if (/\{(.+)\}/g.exec(r))
+                    return /\{(.+)\}/g.exec(r)[1].trim()
+                else
+                    return '';
+            }).join(" ");
+        }
+
+        function getOuterHTMLWithInlineStyle(el) {
+            if (!$(el).attr("class")) {
+                return el.outerHTML;
+            }
+            el.setAttribute('style', getAppliedCss(el));
+            return el.outerHTML;
+        }
+
+        var htmlT = '';
+        function listChildren(element) {
+            
+            $.each($(element).find('*'), function (index, item) {
+                getOuterHTMLWithInlineStyle(item)
+            });
+            htmlT = getOuterHTMLWithInlineStyle(element)
+        }
+
+
+        function copyT() {
+            const e = document.querySelector('.vcard-container-2')
+            listChildren(e);
+            
+            //const html = getOuterHTMLWithInlineStyle(e)
+
+            navigator.clipboard.writeText(htmlT).then(() => {
+                console.log('Succesfully copied HTML to clipboard');
+            }, function (err) {
+                    console.error('Could not copy text.\nTried to copy the following:\n', htmlT);
+            });
+        }
 
 
     </script>
 
 
- <script>
-     $(document).ready(function () {
-         
-     });
- </script>
 }
-
-
-
-

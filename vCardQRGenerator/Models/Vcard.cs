@@ -122,6 +122,10 @@ namespace vCardQRGenerator.Models
         [Optional]
         [JsonPropertyName("skype")]
         public string? Skype { get; set; } = "";
+
+        [Optional]
+        [JsonPropertyName("linkedin")]
+        public string? LinkedIn { get; set; } = "";
     }
 }
 

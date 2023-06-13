@@ -10,6 +10,7 @@ using SixLabors.ImageSharp.Processing;
 using System.DrawingCore.Imaging;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Advanced;
+using System;
 
 namespace vCardQRGenerator.Controllers;
 
@@ -17,13 +18,15 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ICSVService _csvService;
-
+    private readonly IWebHostEnvironment _environment;
 
     public HomeController(ILogger<HomeController> logger,
-        ICSVService csvService)
+        ICSVService csvService,
+        IWebHostEnvironment environment)
     {
         _logger = logger;
         _csvService = csvService;
+        _environment = environment;
     }
 
     public IActionResult Index()
@@ -48,11 +51,11 @@ public class HomeController : Controller
         Console.WriteLine();
         var vcards = _csvService.ReadCSV<Vcard>(file[0].OpenReadStream());
 
-        return Ok(vcards.OrderBy(x=>x.FirstName));
+        return Ok(vcards.OrderBy(x => x.FirstName));
     }
 
     [HttpPost("generate-qr")]
-    public async Task<IActionResult> GetQrCode([FromForm] string vCardInfo, IFormFile file)
+    public async Task<IActionResult> GetQrCode([FromForm] string vCardInfo, IFormFile file,string fileName)
     {
         Byte[] byteArray;
         var width = 250; // width of the QR Code
@@ -78,12 +81,12 @@ public class HomeController : Controller
             using var imageLogo = Image.Load(file.OpenReadStream());
             string newSize = ResizeImage(imageLogo, 50, 50);
             string[] aSize = newSize.Split(',');
-            imageLogo.Mutate(h => h.Resize(Convert.ToInt32(aSize[1]), Convert.ToInt32(aSize[0])));
+            imageLogo.Mutate(h => h.Resize(Convert.ToInt32(aSize[1]), Convert.ToInt32(aSize[0]), KnownResamplers.Lanczos3).Quantize());
 
             image.Mutate(imageContext =>
             {
                 // new Point((image.Width - imageLogo.Width) / 2, (image.Height - imageLogo.Height) / 2)
-                imageContext.DrawImage(imageLogo, new Point((image.Width - imageLogo.Width) / 2, (image.Height - imageLogo.Height)/2), 1);
+                imageContext.DrawImage(imageLogo, new Point((image.Width - imageLogo.Width) / 2, (image.Height - imageLogo.Height) / 2), 1);
             });
 
         }
@@ -91,13 +94,31 @@ public class HomeController : Controller
         using MemoryStream ms = new MemoryStream();
         image.SaveAsPng(ms);
 
+        string path = "";// await SavePostImageAsync(ms, fileName.ToLower());
+
+        
+
         //file.CopyTo(ms);
         //fileArray = Encoding.ASCII.GetString(ms.ToArray());
         //fileArray = BitConverter.ToString(ms.ToArray()).Replace("-", "");
-        return Ok(String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ms.ToArray())));
+        return Ok(new {path= path, data= String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ms.ToArray())) });
 
+    }
 
+    public async Task<string> SavePostImageAsync(MemoryStream ms, string fileName)
+    {
+        var uploads = Path.Combine(_environment.WebRootPath, "vCardQR");
+        var filePath = Path.Combine(uploads, fileName+".png");
 
+        //await image.SaveAsync(filePath);
+        await ms.WriteAsync(ms.ToArray(),0, ms.ToArray().Length);
+        FileStream fs = new FileStream(filePath,FileMode.Create);
+        ms.WriteTo(fs);
+
+        ms.Close();
+        fs.Close();
+
+        return $"vCardQR/{fileName}.png";
 
     }
 
@@ -108,7 +129,7 @@ public class HomeController : Controller
         if (file != null)
         {
             var image = Image.Load(file.OpenReadStream());
-            string newSize = ResizeImage(image, 30, 30);
+            string newSize = ResizeImage(image, 300, 300);
             string[] aSize = newSize.Split(',');
             image.Mutate(h => h.Resize(Convert.ToInt32(aSize[1]), Convert.ToInt32(aSize[0])));
 
@@ -125,6 +146,7 @@ public class HomeController : Controller
         }
         return fileArray;
     }
+
     private string ResizeImage(Image img, int maxWidth, int maxHeight)
     {
         if (img.Width > maxWidth || img.Height > maxHeight)
@@ -139,6 +161,7 @@ public class HomeController : Controller
         else
             return img.Height.ToString() + "," + img.Width.ToString();
     }
+
 
 
 }
